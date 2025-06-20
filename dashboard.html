@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Dashboard - Dream League Soccer Tournament</title>
+    <meta name="description"
+        content="View live tournament stats, leaderboards, fixtures, and team performance in the Dream League Soccer Tournament.">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+            color: #1a1a1a;
+            background: #f8fafc;
+            overflow-x: hidden;
+            font-size: 14px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(34, 197, 94, 0.2);
+            z-index: 1000;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1rem;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #22c55e;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-menu a {
+            color: #374151;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #22c55e;
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .mobile-menu {
+            display: none;
+            color: #374151;
+            font-size: 1.3rem;
+            cursor: pointer;
+        }
+
+        /* Dashboard Header */
+        .dashboard-header {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            padding: 5rem 0 2.5rem;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .dashboard-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+        }
+
+        .dashboard-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .live-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.4rem 0.8rem;
+            border-radius: 16px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.8rem;
+        }
+
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        /* Tab Navigation */
+        .tab-navigation {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            margin: 1.5rem auto;
+            max-width: 1200px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-nav {
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .tab-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #6b7280;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .tab-btn.active {
+            color: #22c55e;
+            border-bottom-color: #22c55e;
+            background: rgba(34, 197, 94, 0.05);
+        }
+
+        .tab-btn:hover {
+            color: #22c55e;
+            background: rgba(34, 197, 94, 0.05);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Section Styling */
+        .section {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-header {
+            background: #f9fafb;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #374151;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .section-header-left {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .section-header i {
+            color: #22c55e;
+        }
+
+        /* League Table Styling */
+        .league-table-container {
+            padding: 0;
+        }
+
+        .teams-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .team-item {
+            border-bottom: 1px solid #f3f4f6;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .team-item:hover {
+            background: #f9fafb;
+        }
+
+        .team-item:last-child {
+            border-bottom: none;
+        }
+
+        .team-header {
+            display: grid;
+            grid-template-columns: 50px 1fr 60px 40px 40px 40px 50px 50px 60px 60px 120px;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .table-headers {
+            display: grid;
+            grid-template-columns: 50px 1fr 60px 40px 40px 40px 50px 50px 60px 60px 120px;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            gap: 0.5rem;
+            background: #f9fafb;
+            border-bottom: 1px solid #e5e7eb;
+            font-weight: 600;
+            font-size: 0.75rem;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .position {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #374151;
+            text-align: center;
+        }
+
+        .position.champion {
+            color: #22c55e;
+        }
+
+        .position.top-4 {
+            color: #3b82f6;
+        }
+
+        .position.europa {
+            color: #f59e0b;
+        }
+
+        .position.relegation {
+            color: #ef4444;
+        }
+
+        .club-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .club-logo {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+
+        .club-name {
+            font-weight: 600;
+            color: #374151;
+            font-size: 0.9rem;
+        }
+
+        .stat-cell {
+            text-align: center;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .points {
+            font-weight: 700;
+            color: #22c55e;
+            text-align: center;
+        }
+
+        .form-indicators {
+            display: flex;
+            gap: 0.2rem;
+            justify-content: center;
+        }
+
+        .form-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .form-dot.win {
+            background: #22c55e;
+        }
+
+        .form-dot.draw {
+            background: #6b7280;
+        }
+
+        .form-dot.loss {
+            background: #ef4444;
+        }
+
+        /* Team Details */
+        .team-details {
+            display: none;
+            background: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+            padding: 1.5rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .team-details.show {
+            display: block;
+        }
+
+        .team-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .team-info-section h4 {
+            color: #22c55e;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .team-info-box {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .team-info-box p {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #374151;
+        }
+
+        .team-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+        }
+
+        .team-stat-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+        }
+
+        .team-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #22c55e;
+        }
+
+        .team-stat-label {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+
+        .squad-section h4 {
+            color: #22c55e;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .squad-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 0.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .squad-player {
+            background: white;
+            padding: 0.75rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #e5e7eb;
+        }
+
+        .squad-player-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .squad-player-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .squad-player-stats {
+            color: #22c55e;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+            color: #22c55e;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #22c55e;
+            display: block;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .stat-card-label {
+            color: #6b7280;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 0.4rem;
+        }
+
+        /* Fixtures */
+        .fixtures-list {
+            list-style: none;
+            padding: 1.5rem;
+        }
+
+        .fixture-item {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .fixture-item:hover {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.05);
+        }
+
+        .fixture-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .fixture-teams {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex: 1;
+        }
+
+        .team-fixture {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            min-width: 120px;
+        }
+
+        .team-fixture-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+
+        .team-fixture-name {
+            font-weight: 600;
+            color: #374151;
+            font-size: 0.85rem;
+        }
+
+        .vs-score {
+            font-weight: 700;
+            color: #22c55e;
+            font-size: 1.2rem;
+            font-family: 'Space Grotesk', sans-serif;
+            text-align: center;
+            min-width: 60px;
+        }
+
+        .fixture-info {
+            text-align: right;
+            min-width: 100px;
+        }
+
+        .fixture-date {
+            font-weight: 600;
+            color: #22c55e;
+            font-size: 0.85rem;
+        }
+
+        .fixture-time {
+            color: #6b7280;
+            font-size: 0.75rem;
+            margin-top: 0.2rem;
+        }
+
+        .fixture-venue {
+            color: #6b7280;
+            font-size: 0.7rem;
+            margin-top: 0.2rem;
+        }
+
+        .fixture-status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 16px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-top: 0.6rem;
+            display: inline-block;
+        }
+
+        .status-upcoming {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .status-live {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        .status-completed {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        /* Players */
+        .players-list {
+            list-style: none;
+            padding: 1.5rem;
+        }
+
+        .player-item {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .player-item:hover {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.05);
+        }
+
+        .player-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .player-info {
+            flex: 1;
+        }
+
+        .player-name {
+            font-weight: 600;
+            color: #374151;
+            font-size: 0.95rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .player-team {
+            color: #6b7280;
+            font-size: 0.8rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .player-position {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .player-stats {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-weight: 700;
+            color: #22c55e;
+            font-size: 1.1rem;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: #6b7280;
+            margin-top: 0.1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.98);
+                flex-direction: column;
+                padding: 0.8rem;
+                border-top: 1px solid #e5e7eb;
+                gap: 0;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .dashboard-header {
+                padding: 4rem 0 2rem;
+            }
+
+            .dashboard-title {
+                font-size: 1.8rem;
+            }
+
+            .team-header {
+                grid-template-columns: 30px 1fr 40px 30px 30px 30px 40px 40px 50px 50px 80px;
+                font-size: 0.75rem;
+                padding: 0.5rem;
+                gap: 0.3rem;
+            }
+
+            .table-headers {
+                grid-template-columns: 30px 1fr 40px 30px 30px 30px 40px 40px 50px 50px 80px;
+                font-size: 0.7rem;
+                padding: 0.5rem;
+                gap: 0.3rem;
+            }
+
+            .club-logo {
+                width: 24px;
+                height: 24px;
+                font-size: 0.6rem;
+            }
+
+            .club-name {
+                font-size: 0.8rem;
+            }
+
+            .form-dot {
+                width: 16px;
+                height: 16px;
+                font-size: 0.5rem;
+            }
+
+            .team-info-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .team-stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .fixture-main {
+                flex-direction: column;
+                gap: 0.8rem;
+                text-align: center;
+            }
+
+            .player-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.8rem;
+            }
+
+            .player-stats {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-title {
+                font-size: 1.6rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-header {
+                grid-template-columns: 25px 1fr 35px 25px 25px 25px 35px 35px 40px 40px 60px;
+                font-size: 0.7rem;
+            }
+
+            .table-headers {
+                grid-template-columns: 25px 1fr 35px 25px 25px 25px 35px 35px 40px 40px 60px;
+                font-size: 0.65rem;
+            }
+
+            .team-stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-shield-alt"></i>
+                DLS ESPORTS
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="Team-Registration.html">Register</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Header -->
+    <section class="dashboard-header">
+        <div class="container">
+            <h1 class="dashboard-title">Tournament Dashboard</h1>
+            <p class="dashboard-subtitle">Live stats, fixtures, and leaderboards for the Dream League Soccer Tournament
+            </p>
+            <div class="live-status">
+                <div class="live-dot"></div>
+                <span>Live Tournament Data</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tab Navigation -->
+    <div class="container">
+        <div class="tab-navigation">
+            <div class="tab-nav">
+                <button class="tab-btn active" onclick="openTab(event, 'leaderboard')">
+                    <i class="fas fa-trophy"></i> League Table
+                </button>
+                <button class="tab-btn" onclick="openTab(event, 'fixtures')">
+                    <i class="fas fa-calendar-alt"></i> Fixtures
+                </button>
+                <button class="tab-btn" onclick="openTab(event, 'players')">
+                    <i class="fas fa-users"></i> Players
+                </button>
+                <button class="tab-btn" onclick="openTab(event, 'stats')">
+                    <i class="fas fa-chart-bar"></i> Stats
+                </button>
+            </div>
+        </div>
+
+        <!-- League Table Tab -->
+        <div id="leaderboard" class="tab-content active">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-header-left">
+                        <i class="fas fa-trophy"></i> League Table
+                    </div>
+                </div>
+
+                <div class="league-table-container">
+                    <!-- Table Headers -->
+                    <div class="table-headers">
+                        <div>Pos</div>
+                        <div>Club</div>
+                        <div>MP</div>
+                        <div>W</div>
+                        <div>D</div>
+                        <div>L</div>
+                        <div>GF</div>
+                        <div>GA</div>
+                        <div>GD</div>
+                        <div>Pts</div>
+                        <div>Last 5</div>
+                    </div>
+
+                    <!-- Teams List -->
+                    <ul class="teams-list">
+                        <!-- Team 1: CHERISH FC -->
+                        <li class="team-item" onclick="toggleTeamDetails(this)">
+                            <div class="team-header">
+                                <div class="position champion">1</div>
+                                <div class="club-info">
+                                    <div class="club-logo">CFC</div>
+                                    <div class="club-name">CHERISH FC</div>
+                                </div>
+                                <div class="stat-cell">0</div>
+                                <div class="stat-cell">0</div>
+                                <div class="stat-cell">0</div>
+                                <div class="stat-cell">0</div>
+                                <div class="stat-cell">0</div>
+                                <div class="stat-cell">0</div>
+                                <div class="stat-cell">0</div>
+                                <div class="points">0</div>
+                                <div class="form-indicators">
+                                    <div class="form-dot draw">-</div>
+                                    <div class="form-dot draw">-</div>
+                                    <div class="form-dot draw">-</div>
+                                    <div class="form-dot draw">-</div>
+                                    <div class="form-dot draw">-</div>
+                                </div>
+                            </div>
+
+                            <div class="team-details">
+                                <div class="team-info-grid">
+                                    <div class="team-info-section">
+                                        <h4><i class="fas fa-info-circle"></i> Team Information</h4>
+                                        <div class="team-info-box">
+                                            <p><strong>Team ID:</strong> CFC001</p>
+                                            <p><strong>Captain:</strong> Michael Johnson</p>
+                                            <p><strong>Email:</strong> cherish@fc.com</p>
+                                            <p><strong>Country:</strong> Nigeria</p>
+                                            <p><strong>Motto:</strong> "Excellence in Unity"</p>
+                                        </div>
+                                    </div>
+                                    <div class="team-info-section">
+                                        <h4><i class="fas fa-chart-bar"></i> Performance Stats</h4>
+                                        <div class="team-stats-grid">
+                                            <div class="team-stat-card">
+                                                <div class="team-stat-value">0</div>
+                                                <div class="team-stat-label">Points</div>
+                                            </div>
+                                            <div class="team-stat-card">
+                                                <div class="team-stat-value">0</div>
+                                                <div class="team-stat-label">Wins</div>
+                                            </div>
+                                            <div class="team-stat-card">
+                                                <div class="team-stat-value">0</div>
+                                                <div class="team-stat-label">Goals</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="squad-section">
+                                    <h4><i class="fas fa-users"></i> Squad (11 players)</h4>
+                                    <ul class="squad-list">
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">MJ</div>
+                                                <span><strong>Michael Johnson</strong> (GK)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">DS</div>
+                                                <span><strong>David Smith</strong> (DF)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">JW</div>
+                                                <span><strong>James Wilson</strong> (DF)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">RB</div>
+                                                <span><strong>Robert Brown</strong> (MF)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">WD</div>
+                                                <span><strong>William Davis</strong> (MF)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">RM</div>
+                                                <span><strong>Richard Miller</strong> (MF)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">CW</div>
+                                                <span><strong>Charles Wilson</strong> (ST)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">TM</div>
+                                                <span><strong>Thomas Moore</strong> (ST)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">CT</div>
+                                                <span><strong>Christopher Taylor</strong> (DF)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">DA</div>
+                                                <span><strong>Daniel Anderson</strong> (MF)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">MT</div>
+                                                <span><strong>Matthew Thomas</strong> (ST)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Team 2: Manchester City -->
+                        <li class="team-item" onclick="toggleTeamDetails(this)">
+                            <div class="team-header">
+                                <div class="position top-4">2</div>
+                                <div class="club-info">
+                                    <div class="club-logo">MCL</div>
+                                    <div class="club-name">Manchester City</div>
+                                </div>
+                                <div class="stat-cell">0</div>
+                                <div class="stat-cell">0</div>
+                                <div class="stat-cell">0</div>
+                                <div class="stat-cell">0</div>
+                                <div class="stat-cell">0</div>
+                                <div class="stat-cell">0</div>
+                                <div class="stat-cell">0</div>
+                                <div class="points">0</div>
+                                <div class="form-indicators">
+                                    <div class="form-dot draw">-</div>
+                                    <div class="form-dot draw">-</div>
+                                    <div class="form-dot draw">-</div>
+                                    <div class="form-dot draw">-</div>
+                                    <div class="form-dot draw">-</div>
+                                </div>
+                            </div>
+
+                            <div class="team-details">
+                                <div class="team-info-grid">
+                                    <div class="team-info-section">
+                                        <h4><i class="fas fa-info-circle"></i> Team Information</h4>
+                                        <div class="team-info-box">
+                                            <p><strong>Team ID:</strong> MCL002</p>
+                                            <p><strong>Captain:</strong> Alex Rodriguez</p>
+                                            <p><strong>Email:</strong> manchester@city.com</p>
+                                            <p><strong>Country:</strong> Nigeria</p>
+                                            <p><strong>Motto:</strong> "Strike Fast, Strike Hard"</p>
+                                        </div>
+                                    </div>
+                                    <div class="team-info-section">
+                                        <h4><i class="fas fa-chart-bar"></i> Performance Stats</h4>
+                                        <div class="team-stats-grid">
+                                            <div class="team-stat-card">
+                                                <div class="team-stat-value">0</div>
+                                                <div class="team-stat-label">Points</div>
+                                            </div>
+                                            <div class="team-stat-card">
+                                                <div class="team-stat-value">0</div>
+                                                <div class="team-stat-label">Wins</div>
+                                            </div>
+                                            <div class="team-stat-card">
+                                                <div class="team-stat-value">0</div>
+                                                <div class="team-stat-label">Goals</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="squad-section">
+                                    <h4><i class="fas fa-users"></i> Squad (11 players)</h4>
+                                    <ul class="squad-list">
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">AR</div>
+                                                <span><strong>Alex Rodriguez</strong> (GK)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">CM</div>
+                                                <span><strong>Carlos Martinez</strong> (DF)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">LG</div>
+                                                <span><strong>Luis Garcia</strong> (DF)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">DL</div>
+                                                <span><strong>Diego Lopez</strong> (MF)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">FS</div>
+                                                <span><strong>Fernando Silva</strong> (MF)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">PH</div>
+                                                <span><strong>Pablo Hernandez</strong> (MF)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">MS</div>
+                                                <span><strong>Miguel Santos</strong> (ST)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">AR</div>
+                                                <span><strong>Antonio Ruiz</strong> (ST)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">RT</div>
+                                                <span><strong>Rafael Torres</strong> (DF)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">EM</div>
+                                                <span><strong>Eduardo Morales</strong> (MF)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">SV</div>
+                                                <span><strong>Sergio Vargas</strong> (ST)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Team 3: MORPHY UNITED -->
+                        <li class="team-item" onclick="toggleTeamDetails(this)">
+                            <div class="team-header">
+                                <div class="position top-4">3</div>
+                                <div class="club-info">
+                                    <div class="club-logo">MTD</div>
+                                    <div class="club-name">MORPHY UNITED</div>
+                                </div>
+                                <div class="stat-cell">0</div>
+                                <div class="stat-cell">0</div>
+                                <div class="stat-cell">0</div>
+                                <div class="stat-cell">0</div>
+                                <div class="stat-cell">0</div>
+                                <div class="stat-cell">0</div>
+                                <div class="stat-cell">0</div>
+                                <div class="points">0</div>
+                                <div class="form-indicators">
+                                    <div class="form-dot draw">-</div>
+                                    <div class="form-dot draw">-</div>
+                                    <div class="form-dot draw">-</div>
+                                    <div class="form-dot draw">-</div>
+                                    <div class="form-dot draw">-</div>
+                                </div>
+                            </div>
+
+                            <div class="team-details">
+                                <div class="team-info-grid">
+                                    <div class="team-info-section">
+                                        <h4><i class="fas fa-info-circle"></i> Team Information</h4>
+                                        <div class="team-info-box">
+                                            <p><strong>Team ID:</strong> MTD003</p>
+                                            <p><strong>Captain:</strong> Emmanuel Okafor</p>
+                                            <p><strong>Email:</strong> morphy@united.com</p>
+                                            <p><strong>Country:</strong> Nigeria</p>
+                                            <p><strong>Motto:</strong> "Rise From The Ashes"</p>
+                                        </div>
+                                    </div>
+                                    <div class="team-info-section">
+                                        <h4><i class="fas fa-chart-bar"></i> Performance Stats</h4>
+                                        <div class="team-stats-grid">
+                                            <div class="team-stat-card">
+                                                <div class="team-stat-value">0</div>
+                                                <div class="team-stat-label">Points</div>
+                                            </div>
+                                            <div class="team-stat-card">
+                                                <div class="team-stat-value">0</div>
+                                                <div class="team-stat-label">Wins</div>
+                                            </div>
+                                            <div class="team-stat-card">
+                                                <div class="team-stat-value">0</div>
+                                                <div class="team-stat-label">Goals</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="squad-section">
+                                    <h4><i class="fas fa-users"></i> Squad (11 players)</h4>
+                                    <ul class="squad-list">
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">EO</div>
+                                                <span><strong>Emmanuel Okafor</strong> (GK)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">CE</div>
+                                                <span><strong>Chukwu Eze</strong> (DF)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">KI</div>
+                                                <span><strong>Kelechi Iheanacho</strong> (DF)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">ON</div>
+                                                <span><strong>Obinna Nwankwo</strong> (MF)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">CO</div>
+                                                <span><strong>Chidera Okoro</strong> (MF)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">IO</div>
+                                                <span><strong>Ikechukwu Obi</strong> (MF)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">EU</div>
+                                                <span><strong>Emeka Ugwu</strong> (ST)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">CO</div>
+                                                <span><strong>Chinedu Okeke</strong> (ST)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">NA</div>
+                                                <span><strong>Nnamdi Azubuike</strong> (DF)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">TO</div>
+                                                <span><strong>Tochukwu Okafor</strong> (MF)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                        <li class="squad-player">
+                                            <div class="squad-player-info">
+                                                <div class="squad-player-avatar">CI</div>
+                                                <span><strong>Chukwuemeka Ibe</strong> (ST)</span>
+                                            </div>
+                                            <span class="squad-player-stats">0G 0A</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fixtures Tab -->
+        <!-- <div id="fixtures" class="tab-content">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-header-left">
+                        <i class="fas fa-calendar-alt"></i> Fixtures & Results
+                    </div>
+                </div>
+
+                <ul class="fixtures-list">
+                    <li class="fixture-item">
+                        <div class="fixture-main">
+                            <div class="fixture-teams">
+                                <div class="team-fixture">
+                                    <div class="team-fixture-logo">CFC</div>
+                                    <div class="team-fixture-name">CHERISH FC</div>
+                                </div>
+                                <div class="vs-score">VS</div>
+                                <div class="team-fixture">
+                                    <div class="team-fixture-logo">MCL</div>
+                                    <div class="team-fixture-name">Manchester City</div>
+                                </div>
+                            </div>
+                            <div class="fixture-info">
+                                <div class="fixture-date">Feb 1, 2025</div>
+                                <div class="fixture-time">3:00 PM</div>
+                                <div class="fixture-venue">DLS Stadium A</div>
+                                <div class="fixture-status status-upcoming">Upcoming</div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="fixture-item">
+                        <div class="fixture-main">
+                            <div class="fixture-teams">
+                                <div class="team-fixture">
+                                    <div class="team-fixture-logo">MTD</div>
+                                    <div class="team-fixture-name">MORPHY UNITED</div>
+                                </div>
+                                <div class="vs-score">VS</div>
+                                <div class="team-fixture">
+                                    <div class="team-fixture-logo">CFC</div>
+                                    <div class="team-fixture-name">CHERISH FC</div>
+                                </div>
+                            </div>
+                            <div class="fixture-info">
+                                <div class="fixture-date">Feb 2, 2025</div>
+                                <div class="fixture-time">5:00 PM</div>
+                                <div class="fixture-venue">DLS Stadium B</div>
+                                <div class="fixture-status status-upcoming">Upcoming</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div> -->
+
+        <!-- Players Tab -->
+        <!-- <div id="players" class="tab-content">
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-header-left">
+                        <i class="fas fa-users"></i> Player Statistics
+                    </div>
+                </div>
+
+                <ul class="players-list">
+                    <li class="player-item">
+                        <div class="player-avatar">MJ</div>
+                        <div class="player-info">
+                            <div class="player-name">Michael Johnson</div>
+                            <div class="player-team">CHERISH FC</div>
+                            <div class="player-position">Goalkeeper</div>
+                        </div>
+                        <div class="player-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Goals</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Assists</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Rating</div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="player-item">
+                        <div class="player-avatar">AR</div>
+                        <div class="player-info">
+                            <div class="player-name">Alex Rodriguez</div>
+                            <div class="player-team">Manchester City</div>
+                            <div class="player-position">Goalkeeper</div>
+                        </div>
+                        <div class="player-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Goals</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Assists</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Rating</div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="player-item">
+                        <div class="player-avatar">EO</div>
+                        <div class="player-info">
+                            <div class="player-name">Emmanuel Okafor</div>
+                            <div class="player-team">MORPHY UNITED</div>
+                            <div class="player-position">Goalkeeper</div>
+                        </div>
+                        <div class="player-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Goals</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Assists</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Rating</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div> -->
+
+        <!-- Tournament Stats Tab -->
+        <div id="stats" class="tab-content">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <span class="stat-number">3</span>
+                    <div class="stat-card-label">Total Teams</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-futbol"></i>
+                    </div>
+                    <span class="stat-number">0</span>
+                    <div class="stat-card-label">Total Goals</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <span class="stat-number">0</span>
+                    <div class="stat-card-label">Matches Played</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <span class="stat-number">₦10,000</span>
+                    <div class="stat-card-label">Prize Pool</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <span class="stat-number">0</span>
+                    <div class="stat-card-label">Avg Goals/Match</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <span class="stat-number">33</span>
+                    <div class="stat-card-label">Active Players</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple tab functionality
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Toggle team details
+        function toggleTeamDetails(element) {
+            const details = element.querySelector('.team-details');
+            const isVisible = details.classList.contains('show');
+
+            // Hide all other team details
+            document.querySelectorAll('.team-details').forEach(detail => {
+                detail.classList.remove('show');
+            });
+
+            // Toggle current team details
+            if (!isVisible) {
+                details.classList.add('show');
+            }
+        }
+
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function () {
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+
+</html>
