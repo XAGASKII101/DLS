@@ -109,7 +109,7 @@
             cursor: pointer;
         }
 
-        /* Enhanced Hero Section */
+        /* Enhanced Hero Section with Stadium Background */
         .hero {
             min-height: 100vh;
             position: relative;
@@ -127,7 +127,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            background-image: url('hero.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             z-index: -3;
         }
 
@@ -138,32 +141,32 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg,
-                    rgba(255, 215, 0, 0.1) 0%,
-                    rgba(34, 197, 94, 0.2) 25%,
-                    rgba(59, 130, 246, 0.1) 50%,
-                    rgba(239, 68, 68, 0.1) 75%,
-                    rgba(168, 85, 247, 0.1) 100%);
+                    rgba(0, 150, 255, 0.3) 0%,
+                    rgba(0, 50, 150, 0.4) 25%,
+                    rgba(34, 197, 94, 0.3) 50%,
+                    rgba(150, 0, 50, 0.4) 75%,
+                    rgba(255, 50, 0, 0.3) 100%);
             z-index: -2;
-            animation: heroGradientShift 8s ease-in-out infinite alternate;
+            animation: heroGradientShift 10s ease-in-out infinite alternate;
         }
 
         @keyframes heroGradientShift {
             0% {
                 background: linear-gradient(135deg,
-                        rgba(255, 215, 0, 0.1) 0%,
-                        rgba(34, 197, 94, 0.2) 25%,
-                        rgba(59, 130, 246, 0.1) 50%,
-                        rgba(239, 68, 68, 0.1) 75%,
-                        rgba(168, 85, 247, 0.1) 100%);
+                        rgba(0, 150, 255, 0.3) 0%,
+                        rgba(0, 50, 150, 0.4) 25%,
+                        rgba(34, 197, 94, 0.3) 50%,
+                        rgba(150, 0, 50, 0.4) 75%,
+                        rgba(255, 50, 0, 0.3) 100%);
             }
 
             100% {
                 background: linear-gradient(225deg,
-                        rgba(168, 85, 247, 0.2) 0%,
-                        rgba(239, 68, 68, 0.1) 25%,
-                        rgba(59, 130, 246, 0.2) 50%,
-                        rgba(34, 197, 94, 0.1) 75%,
-                        rgba(255, 215, 0, 0.2) 100%);
+                        rgba(255, 50, 0, 0.4) 0%,
+                        rgba(150, 0, 50, 0.3) 25%,
+                        rgba(34, 197, 94, 0.4) 50%,
+                        rgba(0, 50, 150, 0.3) 75%,
+                        rgba(0, 150, 255, 0.4) 100%);
             }
         }
 
@@ -179,21 +182,21 @@
 
         .hero-particle {
             position: absolute;
-            width: 3px;
-            height: 3px;
-            background: rgba(255, 215, 0, 0.8);
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.8);
             border-radius: 50%;
-            animation: heroFloat 6s ease-in-out infinite;
+            animation: heroFloat 8s ease-in-out infinite;
         }
 
         .hero-particle:nth-child(odd) {
             animation-delay: -2s;
-            background: rgba(34, 197, 94, 0.8);
+            background: rgba(34, 197, 94, 0.6);
         }
 
         .hero-particle:nth-child(even) {
             animation-delay: -4s;
-            background: rgba(59, 130, 246, 0.8);
+            background: rgba(0, 150, 255, 0.6);
         }
 
         @keyframes heroFloat {
@@ -202,41 +205,86 @@
                 opacity: 0;
             }
             50% {
-                transform: translateY(-100px) rotate(180deg);
+                transform: translateY(-120px) rotate(180deg);
                 opacity: 1;
             }
         }
 
-        .championship-badge {
+        .stadium-lights {
             position: absolute;
-            top: 100px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .light-beam {
+            position: absolute;
+            width: 150px;
+            height: 100vh;
+            background: linear-gradient(to bottom,
+                    rgba(255, 255, 255, 0.1) 0%,
+                    rgba(255, 255, 255, 0.05) 50%,
+                    transparent 100%);
+            animation: lightSweep 12s linear infinite;
+        }
+
+        .light-beam:nth-child(1) {
+            left: 15%;
+            animation-delay: 0s;
+        }
+
+        .light-beam:nth-child(2) {
+            left: 50%;
+            animation-delay: -4s;
+        }
+
+        .light-beam:nth-child(3) {
+            left: 75%;
+            animation-delay: -8s;
+        }
+
+        @keyframes lightSweep {
+            0% {
+                transform: translateX(-80px) rotate(-3deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(80px) rotate(3deg);
+                opacity: 0;
+            }
+        }
+
+        .gaming-logo {
+            position: absolute;
+            top: 80px;
             right: 50px;
-            background: linear-gradient(135deg, #ffd700, #ffed4e);
-            color: #1a1a1a;
-            padding: 1rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 800;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
-            animation: championshipPulse 3s ease-in-out infinite;
+            width: 280px;
+            height: auto;
+            opacity: 0.9;
+            filter: drop-shadow(0 0 20px rgba(34, 197, 94, 0.5));
+            animation: gamingPulse 4s ease-in-out infinite;
             z-index: 15;
         }
 
-        @keyframes championshipPulse {
+        @keyframes gamingPulse {
             0%, 100% {
                 transform: scale(1);
-                box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+                filter: drop-shadow(0 0 20px rgba(34, 197, 94, 0.5));
             }
             50% {
-                transform: scale(1.05);
-                box-shadow: 0 15px 40px rgba(255, 215, 0, 0.5);
+                transform: scale(1.03);
+                filter: drop-shadow(0 0 30px rgba(0, 150, 255, 0.7));
             }
         }
 
         .hero-content {
-            max-width: 900px;
+            max-width: 800px;
             padding: 0 1.5rem;
             position: relative;
             z-index: 10;
@@ -244,60 +292,53 @@
 
         .hero-badge {
             display: inline-block;
-            background: rgba(255, 215, 0, 0.15);
-            border: 2px solid rgba(255, 215, 0, 0.4);
-            color: #ffd700;
-            padding: 0.75rem 1.5rem;
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid rgba(34, 197, 94, 0.4);
+            color: #22c55e;
+            padding: 0.5rem 1rem;
             border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 700;
+            font-size: 0.8rem;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 1.5rem;
             backdrop-filter: blur(10px);
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
-            animation: badgePulse 2s ease-in-out infinite;
-        }
-
-        @keyframes badgePulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.02);
-            }
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.2);
         }
 
         .hero h1 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 900;
+            font-size: 3rem;
+            font-weight: 800;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, #ffd700, #ffffff, #22c55e);
+            background: linear-gradient(135deg, #ffffff, #22c55e, #00aaff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             line-height: 1.1;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-            animation: titleGlow 4s ease-in-out infinite alternate;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+            animation: titleGlow 6s ease-in-out infinite alternate;
         }
 
         @keyframes titleGlow {
             0% {
-                text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+                text-shadow: 0 0 30px rgba(34, 197, 94, 0.8);
+            }
+            50% {
+                text-shadow: 0 0 40px rgba(0, 150, 255, 0.8);
             }
             100% {
-                text-shadow: 0 0 40px rgba(34, 197, 94, 0.8);
+                text-shadow: 0 0 30px rgba(34, 197, 94, 0.8);
             }
         }
 
         .hero-subtitle {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 600;
             color: #ffd700;
             margin-bottom: 1rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
 
         .hero p {
@@ -305,69 +346,56 @@
             margin-bottom: 2rem;
             color: #e5e7eb;
             font-weight: 400;
-            max-width: 700px;
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(2px);
         }
 
-        .prize-showcase {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(34, 197, 94, 0.1));
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            border-radius: 20px;
-            padding: 2rem;
+        .prize-highlight {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.15));
+            border: 1px solid rgba(251, 191, 36, 0.4);
+            border-radius: 12px;
+            padding: 1.25rem;
             margin: 2rem 0;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fbbf24;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.2);
         }
 
-        .prize-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #ffd700;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .prizes-grid {
+        .prize-breakdown {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
         }
 
         .prize-item {
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 15px;
-            padding: 1.5rem;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
             text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .prize-item:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 215, 0, 0.5);
-            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.2);
         }
 
         .prize-position {
-            font-size: 2.5rem;
+            font-size: 1.5rem;
             margin-bottom: 0.5rem;
         }
 
         .prize-amount {
-            font-size: 1.5rem;
             font-weight: 700;
             color: #22c55e;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
         }
 
         .prize-bonus {
-            font-size: 0.9rem;
-            color: #ffd700;
-            font-weight: 600;
+            color: #fbbf24;
+            font-size: 0.8rem;
         }
 
         .tournament-info {
@@ -375,7 +403,7 @@
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 1rem;
             margin: 2rem 0;
-            max-width: 800px;
+            max-width: 720px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -383,126 +411,119 @@
         .info-item {
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            padding: 1.2rem;
+            border-radius: 8px;
+            padding: 1rem;
             text-align: center;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .info-item:hover {
-            border-color: rgba(255, 215, 0, 0.4);
-            background: rgba(255, 215, 0, 0.08);
-            transform: translateY(-3px);
+            border-color: rgba(34, 197, 94, 0.4);
+            background: rgba(34, 197, 94, 0.08);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.2);
         }
 
         .info-item i {
-            color: #ffd700;
-            font-size: 1.8rem;
-            margin-bottom: 0.8rem;
+            color: #22c55e;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
         }
 
         .info-item h4 {
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
             color: #ffffff;
         }
 
         .info-item p {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #d1d5db;
         }
 
-        .urgency-banner {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(255, 215, 0, 0.15));
-            border: 2px solid rgba(239, 68, 68, 0.3);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin: 2rem 0;
+        .urgency-notice {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
             text-align: center;
-            animation: urgencyPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes urgencyPulse {
-            0%, 100% {
-                border-color: rgba(239, 68, 68, 0.3);
-                box-shadow: 0 0 20px rgba(239, 68, 68, 0.1);
-            }
-            50% {
-                border-color: rgba(239, 68, 68, 0.6);
-                box-shadow: 0 0 30px rgba(239, 68, 68, 0.3);
-            }
-        }
-
-        .urgency-text {
-            font-size: 1.2rem;
-            font-weight: 700;
             color: #ef4444;
-            margin-bottom: 0.5rem;
-        }
-
-        .slots-remaining {
-            font-size: 1rem;
-            color: #ffd700;
             font-weight: 600;
         }
 
         .cta-buttons {
             display: flex;
-            gap: 1.5rem;
+            gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 3rem;
+            margin-top: 2.5rem;
         }
 
         .btn {
-            padding: 1rem 2.5rem;
+            padding: 0.875rem 2rem;
             border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 700;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
             font-family: 'Inter', sans-serif;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
             position: relative;
             overflow: hidden;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            backdrop-filter: blur(10px);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #ffd700, #22c55e);
-            color: #1a1a1a;
-            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
         }
 
         .btn-primary:hover {
-            background: linear-gradient(135deg, #22c55e, #ffd700);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.6);
+            background: linear-gradient(135deg, #16a34a, #15803d);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
         }
 
         .btn-secondary {
             background: rgba(255, 255, 255, 0.1);
             color: #e5e7eb;
-            border: 2px solid rgba(255, 215, 0, 0.3);
+            border: 1px solid rgba(229, 231, 235, 0.3);
         }
 
         .btn-secondary:hover {
-            background: rgba(255, 215, 0, 0.1);
-            border-color: rgba(255, 215, 0, 0.6);
-            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(229, 231, 235, 0.5);
+            transform: translateY(-2px);
         }
 
         /* Features Section */
         .features-section {
-            padding: 5rem 0;
-            background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #0a0a0a, #111111);
         }
 
         .container {
@@ -514,62 +535,58 @@
         .section-title {
             text-align: center;
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.5rem;
+            font-size: 2.25rem;
             font-weight: 700;
             margin-bottom: 3rem;
             color: #ffffff;
-            background: linear-gradient(135deg, #ffd700, #22c55e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
         }
 
         .feature-card {
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 15px;
-            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
             text-align: center;
             transition: all 0.3s ease;
         }
 
         .feature-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255, 215, 0, 0.4);
-            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.2);
+            transform: translateY(-5px);
+            border-color: rgba(34, 197, 94, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .feature-card i {
-            font-size: 3rem;
-            color: #ffd700;
-            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            color: #22c55e;
+            margin-bottom: 1rem;
         }
 
         .feature-card h3 {
-            font-size: 1.4rem;
+            font-size: 1.25rem;
             font-weight: 600;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
             color: #ffffff;
         }
 
         .feature-card p {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: #9ca3af;
             line-height: 1.6;
         }
 
         /* Stats Section */
         .stats-section {
-            background: rgba(255, 215, 0, 0.05);
-            border-top: 2px solid rgba(255, 215, 0, 0.2);
-            border-bottom: 2px solid rgba(255, 215, 0, 0.2);
-            padding: 4rem 0;
+            background: rgba(34, 197, 94, 0.05);
+            border-top: 1px solid rgba(34, 197, 94, 0.2);
+            border-bottom: 1px solid rgba(34, 197, 94, 0.2);
+            padding: 3rem 0;
         }
 
         .stats-grid {
@@ -580,25 +597,22 @@
         }
 
         .stat-item {
-            padding: 2rem;
+            padding: 1.5rem;
         }
 
         .stat-number {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 3rem;
-            font-weight: 900;
+            font-size: 2.5rem;
+            font-weight: 700;
             display: block;
-            color: #ffd700;
+            color: #22c55e;
             margin-bottom: 0.5rem;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
         }
 
         .stat-label {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: #9ca3af;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-weight: 500;
         }
 
         /* Footer */
@@ -606,7 +620,7 @@
             background: #0a0a0a;
             color: #9ca3af;
             padding: 3rem 0 1.5rem;
-            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .footer-content {
@@ -617,10 +631,10 @@
         }
 
         .footer-section h3 {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             margin-bottom: 1rem;
-            color: #ffd700;
+            color: #ffffff;
         }
 
         .footer-section a {
@@ -633,12 +647,12 @@
         }
 
         .footer-section a:hover {
-            color: #ffd700;
+            color: #22c55e;
         }
 
         .social-links {
             display: flex;
-            gap: 1rem;
+            gap: 0.75rem;
             margin-top: 1rem;
         }
 
@@ -646,34 +660,51 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 45px;
-            height: 45px;
-            background: rgba(255, 215, 0, 0.1);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 10px;
-            color: #ffd700;
-            font-size: 1.2rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #9ca3af;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
         }
 
         .social-links a:hover {
-            background: #ffd700;
-            color: #1a1a1a;
-            transform: translateY(-2px);
+            background: #22c55e;
+            color: #ffffff;
         }
 
         .footer-bottom {
             text-align: center;
             padding-top: 2rem;
-            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #6b7280;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
             .nav-menu {
                 display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 10, 0.98);
+                flex-direction: column;
+                padding: 0.8rem;
+                border-top: 1px solid rgba(34, 197, 94, 0.2);
+                gap: 0;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu a {
+                padding: 0.6rem 0.8rem;
+                border-radius: 6px;
+                margin-bottom: 0.4rem;
             }
 
             .mobile-menu {
@@ -685,23 +716,26 @@
             }
 
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.25rem;
             }
 
-            .championship-badge {
-                top: 80px;
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .gaming-logo {
+                top: 60px;
                 right: 20px;
-                font-size: 0.8rem;
-                padding: 0.8rem 1.2rem;
-            }
-
-            .prizes-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
+                width: 200px;
             }
 
             .tournament-info {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            .prize-breakdown {
+                grid-template-columns: 1fr;
                 gap: 0.75rem;
             }
 
@@ -712,12 +746,12 @@
 
             .btn {
                 width: 100%;
-                max-width: 300px;
+                max-width: 280px;
                 justify-content: center;
             }
 
             .section-title {
-                font-size: 2rem;
+                font-size: 1.75rem;
             }
 
             .features-grid {
@@ -727,24 +761,25 @@
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 480px) {
             .hero h1 {
-                font-size: 2rem;
+                font-size: 1.875rem;
             }
 
             .hero-subtitle {
                 font-size: 1rem;
             }
 
-            .championship-badge {
-                position: relative;
-                top: 0;
-                right: 0;
-                margin-bottom: 1rem;
-                font-size: 0.7rem;
-                padding: 0.6rem 1rem;
+            .gaming-logo {
+                width: 160px;
+                top: 50px;
+                right: 15px;
             }
 
             .tournament-info {
@@ -757,6 +792,26 @@
 
             .footer-content {
                 grid-template-columns: 1fr;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero-content {
+                padding: 0 1rem;
+            }
+
+            .info-item {
+                padding: 0.8rem;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
             }
         }
     </style>
@@ -772,7 +827,7 @@
             </a>
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="dashboard.html">Dashboard and Leaderboard</a></li>
                 <li><a href="Team-Registration.html">Register</a></li>
             </ul>
             <div class="mobile-menu">
@@ -781,74 +836,89 @@
         </div>
     </nav>
 
-    <!-- Enhanced Hero Section -->
+    <!-- Enhanced Hero Section with Stadium Background -->
     <section class="hero" id="home">
         <div class="stadium-background"></div>
         <div class="hero-gradient-overlay"></div>
 
         <div class="hero-particles">
-            <div class="hero-particle" style="left: 10%; top: 20%; animation-duration: 8s;"></div>
-            <div class="hero-particle" style="left: 20%; top: 80%; animation-duration: 6s;"></div>
-            <div class="hero-particle" style="left: 30%; top: 40%; animation-duration: 7s;"></div>
-            <div class="hero-particle" style="left: 40%; top: 60%; animation-duration: 9s;"></div>
-            <div class="hero-particle" style="left: 50%; top: 30%; animation-duration: 5s;"></div>
-            <div class="hero-particle" style="left: 60%; top: 70%; animation-duration: 8s;"></div>
-            <div class="hero-particle" style="left: 70%; top: 50%; animation-duration: 6s;"></div>
-            <div class="hero-particle" style="left: 80%; top: 20%; animation-duration: 7s;"></div>
-            <div class="hero-particle" style="left: 90%; top: 80%; animation-duration: 9s;"></div>
+            <div class="hero-particle" style="left: 10%; top: 20%; animation-duration: 10s;"></div>
+            <div class="hero-particle" style="left: 20%; top: 80%; animation-duration: 8s;"></div>
+            <div class="hero-particle" style="left: 30%; top: 40%; animation-duration: 9s;"></div>
+            <div class="hero-particle" style="left: 40%; top: 60%; animation-duration: 11s;"></div>
+            <div class="hero-particle" style="left: 50%; top: 30%; animation-duration: 7s;"></div>
+            <div class="hero-particle" style="left: 60%; top: 70%; animation-duration: 10s;"></div>
+            <div class="hero-particle" style="left: 70%; top: 50%; animation-duration: 8s;"></div>
+            <div class="hero-particle" style="left: 80%; top: 20%; animation-duration: 9s;"></div>
+            <div class="hero-particle" style="left: 90%; top: 80%; animation-duration: 11s;"></div>
         </div>
 
-        <div class="championship-badge">
-            <i class="fas fa-crown"></i>
-            ULTIMATE CHAMPIONSHIP
+        <div class="stadium-lights">
+            <div class="light-beam"></div>
+            <div class="light-beam"></div>
+            <div class="light-beam"></div>
         </div>
+
+        <img src="hero2.png" alt="Tournament Championship" class="gaming-logo">
 
         <div class="hero-content">
             <div class="hero-badge">
-                <i class="fas fa-fire"></i>
-                🎮 REGISTRATION NOW OPEN! 🏆
+                <i class="fas fa-trophy"></i>
+                Registration Now Open
             </div>
 
             <h1>ULTIMATE DLS CHAMPIONSHIP</h1>
-            <div class="hero-subtitle">💥 The Battle of 30 Teams Begins! 💥</div>
+            <div class="hero-subtitle">
+                <i class="fas fa-bolt"></i>
+                The Battle of 30 Teams Begins
+                <i class="fas fa-bolt"></i>
+            </div>
             <p>Join the most epic Dream League Soccer tournament ever! Limited to only 30 teams with massive prizes and professional competition. Slots are filling fast!</p>
 
-            <div class="prize-showcase">
-                <div class="prize-title">🏅 MASSIVE PRIZE POOL 🏅</div>
-                <div class="prizes-grid">
+            <div class="prize-highlight">
+                <i class="fas fa-award"></i>
+                Total Prize Pool: ₦16,500+ with Data Bonuses
+                
+                <div class="prize-breakdown">
                     <div class="prize-item">
-                        <div class="prize-position">🥇</div>
+                        <div class="prize-position">
+                            <i class="fas fa-medal"></i>
+                        </div>
                         <div class="prize-amount">₦10,000</div>
-                        <div class="prize-bonus">+ 2GB Data 📶</div>
+                        <div class="prize-bonus">+ 2GB Data</div>
                     </div>
                     <div class="prize-item">
-                        <div class="prize-position">🥈</div>
+                        <div class="prize-position">
+                            <i class="fas fa-award"></i>
+                        </div>
                         <div class="prize-amount">₦5,000</div>
-                        <div class="prize-bonus">+ 1GB Data 📶</div>
+                        <div class="prize-bonus">+ 1GB Data</div>
                     </div>
                     <div class="prize-item">
-                        <div class="prize-position">🥉</div>
+                        <div class="prize-position">
+                            <i class="fas fa-trophy"></i>
+                        </div>
                         <div class="prize-amount">₦1,500</div>
-                        <div class="prize-bonus">+ 500MB Data 📶</div>
+                        <div class="prize-bonus">+ 500MB Data</div>
                     </div>
                 </div>
             </div>
 
-            <div class="urgency-banner">
-                <div class="urgency-text">⏳ SLOTS DEY GO FAST O! ⏳</div>
-                <div class="slots-remaining">Limited to 30 Teams Only - Register Now!</div>
+            <div class="urgency-notice">
+                <i class="fas fa-clock"></i>
+                Slots dey go fast o! Limited to 30 Teams Only
             </div>
 
             <div class="tournament-info">
                 <div class="info-item">
-                    <i class="fas fa-calendar-alt"></i>
-                    <h4>Kick-off Date</h4>
-                    <p>Sunday 22nd June 🔥🔥🔥</p>
+                    <i class="fas fa-calendar"></i>
+                    <h4>Kick-off</h4>
+                    <p>Sunday 22nd June</p>
                 </div>
                 <div class="info-item">
                     <i class="fas fa-dollar-sign"></i>
                     <h4>Entry Fee</h4>
-                    <p>Only ₦1,000 per team</p>
+                    <p>₦1,000 per team</p>
                 </div>
                 <div class="info-item">
                     <i class="fas fa-users"></i>
@@ -856,20 +926,30 @@
                     <p>30 Teams Maximum</p>
                 </div>
                 <div class="info-item">
-                    <i class="fas fa-camera"></i>
-                    <h4>Match Monitoring</h4>
+                    <i class="fas fa-eye"></i>
+                    <h4>Monitoring</h4>
                     <p>Screenshots Required</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-chart-line"></i>
+                    <h4>Live Tracking</h4>
+                    <p>Real-time stats</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-broadcast-tower"></i>
+                    <h4>Live Updates</h4>
+                    <p>Instant results</p>
                 </div>
             </div>
 
             <div class="cta-buttons">
                 <a href="Team-Registration.html" class="btn btn-primary">
-                    <i class="fas fa-rocket"></i>
-                    Register Your Team Now!
+                    <i class="fas fa-user-plus"></i>
+                    Register Team
                 </a>
                 <a href="dashboard.html" class="btn btn-secondary">
-                    <i class="fas fa-trophy"></i>
-                    View Tournament
+                    <i class="fas fa-info-circle"></i>
+                    View Dashboard
                 </a>
             </div>
         </div>
@@ -878,30 +958,30 @@
     <!-- Features Section -->
     <section class="features-section">
         <div class="container">
-            <h2 class="section-title">Why Join the Ultimate Championship?</h2>
+            <h2 class="section-title">Tournament Features</h2>
             <div class="features-grid">
                 <div class="feature-card">
-                    <i class="fas fa-eye"></i>
-                    <h3>🕹 Monitored Matches</h3>
-                    <p>All matches will be carefully monitored with screenshot verification to ensure fair play and legitimate results.</p>
-                </div>
-
-                <div class="feature-card">
-                    <i class="fas fa-crown"></i>
-                    <h3>💰 Massive Prizes</h3>
-                    <p>Win big with our ₦16,500+ total prize pool plus data bonuses. The biggest DLS tournament prizes ever!</p>
-                </div>
-
-                <div class="feature-card">
-                    <i class="fas fa-bolt"></i>
-                    <h3>⚡ Fast Registration</h3>
-                    <p>Quick and easy registration process. Just pay ₦1,000 and send proof to admin. Limited slots available!</p>
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Live Statistics</h3>
+                    <p>Real-time match tracking with detailed performance analytics and leaderboard updates stored in our database.</p>
                 </div>
 
                 <div class="feature-card">
                     <i class="fas fa-shield-check"></i>
-                    <h3>🛡 Fair Competition</h3>
-                    <p>Professional tournament management with strict rules and monitoring to ensure the best competitive experience.</p>
+                    <h3>Fair Competition</h3>
+                    <p>Advanced monitoring systems and screenshot verification ensure legitimate gameplay with database logging.</p>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-trophy"></i>
+                    <h3>Professional Prizes</h3>
+                    <p>Substantial cash rewards and data bonuses for top-performing teams tracked through our system.</p>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-broadcast-tower"></i>
+                    <h3>Live Coverage</h3>
+                    <p>Professional tournament management with automated result tracking and instant updates.</p>
                 </div>
             </div>
         </div>
@@ -916,34 +996,38 @@
                     <span class="stat-label">Maximum Teams</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number" id="prize-counter">₦16,500+</span>
-                    <span class="stat-label">Total Prize Pool</span>
+                    <span class="stat-number" id="prize-counter">₦16,500</span>
+                    <span class="stat-label">Prize Pool</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number" id="entry-fee">₦1,000</span>
-                    <span class="stat-label">Entry Fee Only</span>
+                    <span class="stat-number" id="players-counter">330</span>
+                    <span class="stat-label">Maximum Players</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number" id="start-date">June 22</span>
-                    <span class="stat-label">Tournament Start</span>
+                    <span class="stat-number" id="matches-counter">0</span>
+                    <span class="stat-label">Matches Played</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Call to Action Section -->
-    <section class="container" style="padding: 4rem 0;">
-        <div style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(34, 197, 94, 0.1)); border: 2px solid rgba(255, 215, 0, 0.3); border-radius: 20px; padding: 3rem; text-align: center;">
-            <h2 style="font-size: 2.5rem; font-weight: 800; color: #ffd700; margin-bottom: 1rem;">💬 Want to prove say you be king of the pitch?</h2>
-            <p style="font-size: 1.2rem; color: #e5e7eb; margin-bottom: 2rem;">Don't miss out on the ultimate DLS championship! Register now before all slots are taken.</p>
-            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <a href="Team-Registration.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 1.2rem 3rem;">
-                    <i class="fas fa-fire"></i>
+    <section class="container" style="padding: 3rem 0;">
+        <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 12px; padding: 2.5rem; text-align: center;">
+            <h2 style="font-size: 1.8rem; font-weight: 700; color: #22c55e; margin-bottom: 1rem;">
+                <i class="fas fa-gamepad"></i>
+                Want to prove say you be king of the pitch?
+            </h2>
+            <p style="font-size: 1rem; color: #e5e7eb; margin-bottom: 1.5rem;">Don't miss out on the ultimate DLS championship! Register now before all slots are taken.</p>
+            <div style="margin-bottom: 1rem;">
+                <a href="Team-Registration.html" class="btn btn-primary" style="font-size: 1rem; padding: 1rem 2.5rem;">
+                    <i class="fas fa-rocket"></i>
                     REGISTER NOW - ₦1,000 ONLY!
                 </a>
             </div>
-            <p style="margin-top: 1.5rem; color: #ef4444; font-weight: 600; font-size: 1rem;">
-                📲 To register, send proof of payment to admin immediately!
+            <p style="color: #ef4444; font-weight: 600; font-size: 0.9rem;">
+                <i class="fas fa-mobile-alt"></i>
+                To register, send proof of payment to admin
             </p>
         </div>
     </section>
@@ -956,55 +1040,43 @@
                     <h3>Tournament</h3>
                     <a href="Team-Registration.html">Register Team</a>
                     <a href="dashboard.html">Dashboard</a>
-                    <a href="#rules">Tournament Rules</a>
-                    <a href="#schedule">Match Schedule</a>
+                    <a href="#rules">Rules</a>
+                    <a href="#schedule">Schedule</a>
                 </div>
                 <div class="footer-section">
                     <h3>Support</h3>
-                    <a href="#contact">Contact Admin</a>
+                    <a href="#contact">Contact</a>
                     <a href="#faq">FAQ</a>
                     <a href="#help">Help Center</a>
-                    <a href="#payment">Payment Guide</a>
+                    <a href="#feedback">Feedback</a>
                 </div>
                 <div class="footer-section">
-                    <h3>Information</h3>
-                    <a href="#prizes">Prize Structure</a>
-                    <a href="#rules">Competition Rules</a>
-                    <a href="#monitoring">Match Monitoring</a>
+                    <h3>Legal</h3>
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms of Service</a>
+                    <a href="#refund">Refund Policy</a>
                 </div>
                 <div class="footer-section">
                     <h3>Connect</h3>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#"><i class="fab fa-telegram"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Ultimate DLS Championship. All rights reserved. 🏆</p>
+                <p>&copy; 2025 Ultimate DLS Championship. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
         // Mobile menu toggle
-        document.querySelector('.mobile-menu').addEventListener('click', () => {
+        document.querySelector('.mobile-menu').addEventListener('click', function () {
             const navMenu = document.querySelector('.nav-menu');
-            if (navMenu.style.display === 'flex') {
-                navMenu.style.display = 'none';
-            } else {
-                navMenu.style.display = 'flex';
-                navMenu.style.flexDirection = 'column';
-                navMenu.style.position = 'absolute';
-                navMenu.style.top = '100%';
-                navMenu.style.left = '0';
-                navMenu.style.right = '0';
-                navMenu.style.background = 'rgba(10, 10, 10, 0.98)';
-                navMenu.style.padding = '1rem';
-                navMenu.style.borderTop = '1px solid rgba(255, 215, 0, 0.2)';
-            }
+            navMenu.classList.toggle('active');
         });
 
         // Smooth scrolling
@@ -1031,20 +1103,25 @@
             }
         });
 
-        // Add urgency countdown effect
-        function addUrgencyEffect() {
-            const urgencyBanner = document.querySelector('.urgency-banner');
-            setInterval(() => {
-                urgencyBanner.style.transform = 'scale(1.02)';
-                setTimeout(() => {
-                    urgencyBanner.style.transform = 'scale(1)';
-                }, 200);
-            }, 3000);
+        // Animated counters
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(start);
+                }
+            }, 16);
         }
 
-        // Initialize effects
+        // Initialize counters
         window.addEventListener('load', () => {
-            addUrgencyEffect();
+            animateCounter(document.getElementById('players-counter'), 330);
+            animateCounter(document.getElementById('matches-counter'), 0);
         });
     </script>
 </body>
