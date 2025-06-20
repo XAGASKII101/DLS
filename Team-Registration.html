@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ULTIMATE DLS CHAMPIONSHIP - Dream League Soccer Tournament</title>
+    <title>Team Registration - Dream League Soccer Tournament</title>
     <meta name="description"
-        content="Join the ULTIMATE DLS CHAMPIONSHIP! 30 teams battle for ₦10,000 first prize. Registration ₦1000 per team. Limited slots available!">
+        content="Register your Dream League Soccer team for the ultimate tournament. Enter squad details and secure your spot in the competition.">
 
     <!-- Google Fonts -->
     <link
@@ -28,6 +28,7 @@
             color: #ffffff;
             background: #0a0a0a;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
         /* Navigation */
@@ -81,6 +82,8 @@
             font-size: 0.9rem;
             transition: all 0.3s ease;
             position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
         }
 
         .nav-menu a::after {
@@ -94,12 +97,15 @@
             transition: width 0.3s ease;
         }
 
-        .nav-menu a:hover::after {
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
             width: 100%;
         }
 
-        .nav-menu a:hover {
+        .nav-menu a:hover,
+        .nav-menu a.active {
             color: #22c55e;
+            background: rgba(34, 197, 94, 0.1);
         }
 
         .mobile-menu {
@@ -109,577 +115,640 @@
             cursor: pointer;
         }
 
-        /* Enhanced Hero Section with Stadium Background */
-        .hero {
-            min-height: 100vh;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* Header */
+        .registration-header {
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.9), rgba(20, 20, 20, 0.8));
+            color: white;
+            padding: 8rem 0 4rem;
             text-align: center;
-            padding: 6rem 0 4rem;
-            overflow: hidden;
+            position: relative;
+            margin-top: 60px;
         }
 
-        .stadium-background {
+        .registration-header::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-TBrONAO22XZbPg5Nfor3tjmcnXty3x.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            z-index: -3;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(34, 197, 94, 0.05), transparent);
+            opacity: 0.5;
         }
 
-        .hero-gradient-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg,
-                    rgba(0, 150, 255, 0.3) 0%,
-                    rgba(0, 50, 150, 0.4) 25%,
-                    rgba(34, 197, 94, 0.3) 50%,
-                    rgba(150, 0, 50, 0.4) 75%,
-                    rgba(255, 50, 0, 0.3) 100%);
-            z-index: -2;
-            animation: heroGradientShift 10s ease-in-out infinite alternate;
-        }
-
-        @keyframes heroGradientShift {
-            0% {
-                background: linear-gradient(135deg,
-                        rgba(0, 150, 255, 0.3) 0%,
-                        rgba(0, 50, 150, 0.4) 25%,
-                        rgba(34, 197, 94, 0.3) 50%,
-                        rgba(150, 0, 50, 0.4) 75%,
-                        rgba(255, 50, 0, 0.3) 100%);
-            }
-
-            100% {
-                background: linear-gradient(225deg,
-                        rgba(255, 50, 0, 0.4) 0%,
-                        rgba(150, 0, 50, 0.3) 25%,
-                        rgba(34, 197, 94, 0.4) 50%,
-                        rgba(0, 50, 150, 0.3) 75%,
-                        rgba(0, 150, 255, 0.4) 100%);
-            }
-        }
-
-        .hero-particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .hero-particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            animation: heroFloat 8s ease-in-out infinite;
-        }
-
-        .hero-particle:nth-child(odd) {
-            animation-delay: -2s;
-            background: rgba(34, 197, 94, 0.6);
-        }
-
-        .hero-particle:nth-child(even) {
-            animation-delay: -4s;
-            background: rgba(0, 150, 255, 0.6);
-        }
-
-        @keyframes heroFloat {
-            0%, 100% {
-                transform: translateY(0px) rotate(0deg);
-                opacity: 0;
-            }
-            50% {
-                transform: translateY(-120px) rotate(180deg);
-                opacity: 1;
-            }
-        }
-
-        .stadium-lights {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .light-beam {
-            position: absolute;
-            width: 150px;
-            height: 100vh;
-            background: linear-gradient(to bottom,
-                    rgba(255, 255, 255, 0.1) 0%,
-                    rgba(255, 255, 255, 0.05) 50%,
-                    transparent 100%);
-            animation: lightSweep 12s linear infinite;
-        }
-
-        .light-beam:nth-child(1) {
-            left: 15%;
-            animation-delay: 0s;
-        }
-
-        .light-beam:nth-child(2) {
-            left: 50%;
-            animation-delay: -4s;
-        }
-
-        .light-beam:nth-child(3) {
-            left: 75%;
-            animation-delay: -8s;
-        }
-
-        @keyframes lightSweep {
-            0% {
-                transform: translateX(-80px) rotate(-3deg);
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateX(80px) rotate(3deg);
-                opacity: 0;
-            }
-        }
-
-        .gaming-logo {
-            position: absolute;
-            top: 80px;
-            right: 50px;
-            width: 280px;
-            height: auto;
-            opacity: 0.9;
-            filter: drop-shadow(0 0 20px rgba(34, 197, 94, 0.5));
-            animation: gamingPulse 4s ease-in-out infinite;
-            z-index: 15;
-        }
-
-        @keyframes gamingPulse {
-            0%, 100% {
-                transform: scale(1);
-                filter: drop-shadow(0 0 20px rgba(34, 197, 94, 0.5));
-            }
-            50% {
-                transform: scale(1.03);
-                filter: drop-shadow(0 0 30px rgba(0, 150, 255, 0.7));
-            }
-        }
-
-        .hero-content {
-            max-width: 800px;
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
             padding: 0 1.5rem;
             position: relative;
-            z-index: 10;
+            z-index: 2;
         }
 
-        .hero-badge {
-            display: inline-block;
-            background: rgba(34, 197, 94, 0.15);
-            border: 1px solid rgba(34, 197, 94, 0.4);
-            color: #22c55e;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 1.5rem;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.2);
-        }
-
-        .hero h1 {
+        .header-title {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 3rem;
             font-weight: 800;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, #ffffff, #22c55e, #00aaff);
+            background: linear-gradient(135deg, #ffffff, #22c55e);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             line-height: 1.1;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-            animation: titleGlow 6s ease-in-out infinite alternate;
         }
 
-        @keyframes titleGlow {
-            0% {
-                text-shadow: 0 0 30px rgba(34, 197, 94, 0.8);
-            }
-            50% {
-                text-shadow: 0 0 40px rgba(0, 150, 255, 0.8);
-            }
-            100% {
-                text-shadow: 0 0 30px rgba(34, 197, 94, 0.8);
-            }
-        }
-
-        .hero-subtitle {
+        .header-subtitle {
             font-size: 1.2rem;
-            font-weight: 600;
-            color: #ffd700;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            color: #e5e7eb;
+            color: #d1d5db;
             font-weight: 400;
             max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(2px);
+            margin: 0 auto;
         }
 
-        .prize-highlight {
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.15));
-            border: 1px solid rgba(251, 191, 36, 0.4);
+        /* Registration Code Section */
+        .code-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
-            padding: 1.25rem;
-            margin: 2rem 0;
+            margin: 2rem auto;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .code-header {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .code-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .code-content {
+            padding: 2rem;
+        }
+
+        .whatsapp-contact {
+            background: rgba(37, 211, 102, 0.1);
+            border: 1px solid rgba(37, 211, 102, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-btn i {
+            font-size: 1.5rem;
+        }
+
+        .code-input-section {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .code-input-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .code-input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
             font-size: 1.1rem;
             font-weight: 600;
-            color: #fbbf24;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.2);
-        }
-
-        .prize-breakdown {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-            font-size: 0.9rem;
-        }
-
-        .prize-item {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(251, 191, 36, 0.3);
-            border-radius: 8px;
-            padding: 1rem;
             text-align: center;
-        }
-
-        .prize-position {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .prize-amount {
-            font-weight: 700;
-            color: #22c55e;
-            margin-bottom: 0.25rem;
-        }
-
-        .prize-bonus {
-            color: #fbbf24;
-            font-size: 0.8rem;
-        }
-
-        .tournament-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1rem;
-            margin: 2rem 0;
-            max-width: 720px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .info-item {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 8px;
-            padding: 1rem;
-            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .info-item:hover {
-            border-color: rgba(34, 197, 94, 0.4);
-            background: rgba(34, 197, 94, 0.08);
+        .code-input::placeholder {
+            color: #9ca3af;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        .code-input:focus {
+            outline: none;
+            border-color: #22c55e;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+        }
+
+        .verify-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+        }
+
+        .verify-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.2);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
         }
 
-        .info-item i {
-            color: #22c55e;
-            font-size: 1.5rem;
+        .verify-btn:disabled {
+            background: #6b7280;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Registration Form */
+        .registration-form {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .registration-form.active {
+            display: block;
+        }
+
+        .steps-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 2rem auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .steps-header {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .steps-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
             margin-bottom: 0.5rem;
         }
 
-        .info-item h4 {
-            font-size: 0.9rem;
+        .steps-nav {
+            display: flex;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            color: #9ca3af;
             font-weight: 600;
-            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .step.active {
+            color: #22c55e;
+        }
+
+        .step.completed {
+            color: #4ade80;
+        }
+
+        .step-number {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: #9ca3af;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-number {
+            background: #22c55e;
+            color: white;
+        }
+
+        .step.completed .step-number {
+            background: #4ade80;
+            color: white;
+        }
+
+        /* Form Sections */
+        .form-section {
+            display: none;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .form-section h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #e5e7eb;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #9ca3af;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #22c55e;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+        }
+
+        .form-group.required label::after {
+            content: " *";
+            color: #f87171;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-group select option {
+            background: #1a1a1a;
             color: #ffffff;
         }
 
-        .info-item p {
-            font-size: 0.8rem;
-            color: #d1d5db;
+        /* Squad Builder */
+        .squad-builder {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
         }
 
-        .urgency-notice {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 1.5rem 0;
-            text-align: center;
-            color: #ef4444;
+        .squad-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .squad-header h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .player-count {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
             font-weight: 600;
         }
 
-        .cta-buttons {
-            display: flex;
+        .player-list {
+            display: grid;
             gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .player-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .player-item:hover {
+            border-color: rgba(34, 197, 94, 0.3);
+            background: rgba(34, 197, 94, 0.05);
+        }
+
+        .position-select {
+            padding: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            font-size: 0.9rem;
+        }
+
+        .remove-player {
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
             justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .remove-player:hover {
+            background: #dc2626;
+            transform: scale(1.1);
+        }
+
+        .add-player-btn {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .add-player-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+        }
+
+        /* Team Logo Upload */
+        .logo-upload {
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .logo-upload:hover {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.05);
+        }
+
+        .logo-upload.dragover {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .logo-preview {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 12px;
+            margin: 1rem auto;
+            display: none;
+            border: 2px solid rgba(34, 197, 94, 0.3);
+        }
+
+        /* Success Section */
+        .success-section {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: #22c55e;
+            margin-bottom: 1.5rem;
+        }
+
+        .success-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #22c55e;
+            margin-bottom: 1rem;
+        }
+
+        .team-id {
+            background: rgba(34, 197, 94, 0.1);
+            border: 2px solid rgba(34, 197, 94, 0.3);
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 2rem 0;
+            color: #22c55e;
+        }
+
+        /* Navigation Buttons */
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .btn {
             padding: 0.875rem 2rem;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 0.95rem;
             font-weight: 600;
-            font-family: 'Inter', sans-serif;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
+            font-family: 'Inter', sans-serif;
         }
 
         .btn-primary {
             background: linear-gradient(135deg, #22c55e, #16a34a);
-            color: #ffffff;
+            color: white;
             box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
         }
 
         .btn-primary:hover {
-            background: linear-gradient(135deg, #16a34a, #15803d);
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
-        }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn-primary:hover::before {
-            left: 100%;
         }
 
         .btn-secondary {
             background: rgba(255, 255, 255, 0.1);
             color: #e5e7eb;
-            border: 1px solid rgba(229, 231, 235, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(229, 231, 235, 0.5);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+        }
+
+        .btn-success:hover {
             transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
         }
 
-        /* Features Section */
-        .features-section {
-            padding: 4rem 0;
-            background: linear-gradient(135deg, #0a0a0a, #111111);
+        .btn:disabled {
+            background: #6b7280;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
+        /* Error and Success Messages */
+        .error-message {
+            color: #f87171;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: none;
         }
 
-        .section-title {
-            text-align: center;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.25rem;
-            font-weight: 700;
-            margin-bottom: 3rem;
-            color: #ffffff;
+        .success-message {
+            color: #4ade80;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: none;
         }
 
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(34, 197, 94, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .feature-card i {
-            font-size: 2.5rem;
-            color: #22c55e;
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
             margin-bottom: 1rem;
-        }
-
-        .feature-card h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: #ffffff;
-        }
-
-        .feature-card p {
-            font-size: 0.9rem;
-            color: #9ca3af;
-            line-height: 1.6;
-        }
-
-        /* Stats Section */
-        .stats-section {
-            background: rgba(34, 197, 94, 0.05);
-            border-top: 1px solid rgba(34, 197, 94, 0.2);
-            border-bottom: 1px solid rgba(34, 197, 94, 0.2);
-            padding: 3rem 0;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .stat-item {
-            padding: 1.5rem;
-        }
-
-        .stat-number {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            display: block;
-            color: #22c55e;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: #9ca3af;
             font-weight: 500;
         }
 
-        /* Footer */
-        .footer {
-            background: #0a0a0a;
-            color: #9ca3af;
-            padding: 3rem 0 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        .alert-error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
         }
 
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
+        .alert-success {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #4ade80;
         }
 
-        .footer-section h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #ffffff;
-        }
-
-        .footer-section a {
-            color: #9ca3af;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: #22c55e;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: 1rem;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
+        /* Loading Spinner */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(34, 197, 94, 0.3);
+            border-top: 3px solid #22c55e;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* WhatsApp Status */
+        .whatsapp-status {
+            background: rgba(37, 211, 102, 0.1);
+            border: 1px solid rgba(37, 211, 102, 0.3);
             border-radius: 8px;
-            color: #9ca3af;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background: #22c55e;
-            color: #ffffff;
-        }
-
-        .footer-bottom {
+            padding: 1rem;
+            margin: 1rem 0;
             text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #6b7280;
-            font-size: 0.85rem;
+            color: #25d366;
+            font-size: 0.9rem;
         }
 
         /* Responsive Design */
@@ -692,7 +761,7 @@
                 right: 0;
                 background: rgba(10, 10, 10, 0.98);
                 flex-direction: column;
-                padding: 0.8rem;
+                padding: 1rem;
                 border-top: 1px solid rgba(34, 197, 94, 0.2);
                 gap: 0;
             }
@@ -702,133 +771,149 @@
             }
 
             .nav-menu a {
-                padding: 0.6rem 0.8rem;
-                border-radius: 6px;
-                margin-bottom: 0.4rem;
+                padding: 0.75rem 1rem;
+                border-radius: 8px;
+                margin-bottom: 0.5rem;
             }
 
             .mobile-menu {
                 display: block;
             }
 
-            .hero {
-                padding: 5rem 0 3rem;
+            .registration-header {
+                padding: 6rem 0 3rem;
             }
 
-            .hero h1 {
+            .header-title {
                 font-size: 2.25rem;
             }
 
-            .hero p {
+            .header-subtitle {
                 font-size: 1rem;
             }
 
-            .gaming-logo {
-                top: 60px;
-                right: 20px;
-                width: 200px;
-            }
-
-            .tournament-info {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.75rem;
-            }
-
-            .prize-breakdown {
+            .form-row {
                 grid-template-columns: 1fr;
-                gap: 0.75rem;
             }
 
-            .cta-buttons {
+            .steps-nav {
                 flex-direction: column;
+                gap: 1rem;
                 align-items: center;
             }
 
-            .btn {
-                width: 100%;
-                max-width: 280px;
-                justify-content: center;
-            }
-
-            .section-title {
-                font-size: 1.75rem;
-            }
-
-            .features-grid {
+            .player-item {
                 grid-template-columns: 1fr;
+                text-align: center;
+                gap: 1rem;
             }
 
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .form-navigation {
+                flex-direction: column;
+                gap: 1rem;
             }
 
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 1.875rem;
+            .code-input-group {
+                flex-direction: column;
             }
 
-            .hero-subtitle {
+            .whatsapp-btn {
                 font-size: 1rem;
-            }
-
-            .gaming-logo {
-                width: 160px;
-                top: 50px;
-                right: 15px;
-            }
-
-            .tournament-info {
-                grid-template-columns: 1fr;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-container {
-                padding: 0 1rem;
+                padding: 0.875rem 1.5rem;
             }
 
             .container {
                 padding: 0 1rem;
             }
+        }
 
-            .hero-content {
-                padding: 0 1rem;
+        @media (max-width: 480px) {
+            .header-title {
+                font-size: 1.875rem;
             }
 
-            .info-item {
-                padding: 0.8rem;
+            .steps-nav {
+                padding: 1rem;
             }
 
-            .feature-card {
+            .step {
+                font-size: 0.8rem;
+            }
+
+            .step-number {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+
+            .form-section {
                 padding: 1.5rem;
             }
+
+            .squad-builder {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading {
+            animation: pulse 2s infinite;
         }
     </style>
 </head>
 
 <body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#" class="logo">
+            <a href="index.html" class="logo">
                 <i class="fas fa-shield-alt"></i>
                 DLS ESPORTS
             </a>
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="dashboard.html">Dashboard and Leaderboard</a></li>
-                <li><a href="Team-Registration.html">Register</a></li>
+                <li><a href="Team-Registration.html" class="active">Register</a></li>
+                <li><a href="Admin-Dashboard.html">Admin Dashboard</a></li>
             </ul>
             <div class="mobile-menu">
                 <i class="fas fa-bars"></i>
@@ -836,292 +921,670 @@
         </div>
     </nav>
 
-    <!-- Enhanced Hero Section with Stadium Background -->
-    <section class="hero" id="home">
-        <div class="stadium-background"></div>
-        <div class="hero-gradient-overlay"></div>
-
-        <div class="hero-particles">
-            <div class="hero-particle" style="left: 10%; top: 20%; animation-duration: 10s;"></div>
-            <div class="hero-particle" style="left: 20%; top: 80%; animation-duration: 8s;"></div>
-            <div class="hero-particle" style="left: 30%; top: 40%; animation-duration: 9s;"></div>
-            <div class="hero-particle" style="left: 40%; top: 60%; animation-duration: 11s;"></div>
-            <div class="hero-particle" style="left: 50%; top: 30%; animation-duration: 7s;"></div>
-            <div class="hero-particle" style="left: 60%; top: 70%; animation-duration: 10s;"></div>
-            <div class="hero-particle" style="left: 70%; top: 50%; animation-duration: 8s;"></div>
-            <div class="hero-particle" style="left: 80%; top: 20%; animation-duration: 9s;"></div>
-            <div class="hero-particle" style="left: 90%; top: 80%; animation-duration: 11s;"></div>
-        </div>
-
-        <div class="stadium-lights">
-            <div class="light-beam"></div>
-            <div class="light-beam"></div>
-            <div class="light-beam"></div>
-        </div>
-
-        <img src="hero2.png" alt="Tournament Championship" class="gaming-logo">
-
-        <div class="hero-content">
-            <div class="hero-badge">
-                <i class="fas fa-trophy"></i>
-                Registration Now Open
-            </div>
-
-            <h1>ULTIMATE DLS CHAMPIONSHIP</h1>
-            <div class="hero-subtitle">
-                <i class="fas fa-bolt"></i>
-                The Battle of 30 Teams Begins
-                <i class="fas fa-bolt"></i>
-            </div>
-            <p>Join the most epic Dream League Soccer tournament ever! Limited to only 30 teams with massive prizes and professional competition. Slots are filling fast!</p>
-
-            <div class="prize-highlight">
-                <i class="fas fa-award"></i>
-                Total Prize Pool: ₦16,500+ with Data Bonuses
-                
-                <div class="prize-breakdown">
-                    <div class="prize-item">
-                        <div class="prize-position">
-                            <i class="fas fa-medal"></i>
-                        </div>
-                        <div class="prize-amount">₦10,000</div>
-                        <div class="prize-bonus">+ 2GB Data</div>
-                    </div>
-                    <div class="prize-item">
-                        <div class="prize-position">
-                            <i class="fas fa-award"></i>
-                        </div>
-                        <div class="prize-amount">₦5,000</div>
-                        <div class="prize-bonus">+ 1GB Data</div>
-                    </div>
-                    <div class="prize-item">
-                        <div class="prize-position">
-                            <i class="fas fa-trophy"></i>
-                        </div>
-                        <div class="prize-amount">₦1,500</div>
-                        <div class="prize-bonus">+ 500MB Data</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="urgency-notice">
-                <i class="fas fa-clock"></i>
-                Slots dey go fast o! Limited to 30 Teams Only
-            </div>
-
-            <div class="tournament-info">
-                <div class="info-item">
-                    <i class="fas fa-calendar"></i>
-                    <h4>Kick-off</h4>
-                    <p>Sunday 22nd June</p>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-dollar-sign"></i>
-                    <h4>Entry Fee</h4>
-                    <p>₦1,000 per team</p>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-users"></i>
-                    <h4>Team Limit</h4>
-                    <p>30 Teams Maximum</p>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-eye"></i>
-                    <h4>Monitoring</h4>
-                    <p>Screenshots Required</p>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-chart-line"></i>
-                    <h4>Live Tracking</h4>
-                    <p>Real-time stats</p>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-broadcast-tower"></i>
-                    <h4>Live Updates</h4>
-                    <p>Instant results</p>
-                </div>
-            </div>
-
-            <div class="cta-buttons">
-                <a href="Team-Registration.html" class="btn btn-primary">
-                    <i class="fas fa-user-plus"></i>
-                    Register Team
-                </a>
-                <a href="dashboard.html" class="btn btn-secondary">
-                    <i class="fas fa-info-circle"></i>
-                    View Dashboard
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features-section">
+    <!-- Header -->
+    <section class="registration-header">
         <div class="container">
-            <h2 class="section-title">Tournament Features</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Live Statistics</h3>
-                    <p>Real-time match tracking with detailed performance analytics and leaderboard updates stored in our database.</p>
-                </div>
-
-                <div class="feature-card">
-                    <i class="fas fa-shield-check"></i>
-                    <h3>Fair Competition</h3>
-                    <p>Advanced monitoring systems and screenshot verification ensure legitimate gameplay with database logging.</p>
-                </div>
-
-                <div class="feature-card">
-                    <i class="fas fa-trophy"></i>
-                    <h3>Professional Prizes</h3>
-                    <p>Substantial cash rewards and data bonuses for top-performing teams tracked through our system.</p>
-                </div>
-
-                <div class="feature-card">
-                    <i class="fas fa-broadcast-tower"></i>
-                    <h3>Live Coverage</h3>
-                    <p>Professional tournament management with automated result tracking and instant updates.</p>
-                </div>
+            <h1 class="header-title">Team Registration</h1>
+            <p class="header-subtitle">Join the Ultimate Dream League Soccer Tournament - Register Your Team Today!</p>
+            <div class="whatsapp-status">
+                <i class="fab fa-whatsapp"></i> Registration data will be sent directly to admin via WhatsApp
             </div>
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <span class="stat-number" id="teams-counter">30</span>
-                    <span class="stat-label">Maximum Teams</span>
+    <!-- Registration Code Section -->
+    <div class="container">
+        <div class="code-section" id="codeSection">
+            <div class="code-header">
+                <h2><i class="fas fa-key"></i> Get Registration Code</h2>
+                <p>Contact admin to purchase your registration code and secure your tournament spot</p>
+            </div>
+            <div class="code-content">
+                <div class="whatsapp-contact">
+                    <h3 style="margin-bottom: 1rem; color: #ffffff;">
+                        <i class="fab fa-whatsapp"></i> Contact Tournament Admin
+                    </h3>
+                    <p style="margin-bottom: 1.5rem; color: #d1d5db;">
+                        Click the button below to contact our admin on WhatsApp for your registration code.
+                        <br><strong>Entry Fee: ₦1,000 per team</strong>
+                    </p>
+                    <a href="https://wa.me/2348107516059?text=Hello!%20I%20want%20to%20register%20my%20team%20for%20the%20Dream%20League%20Soccer%20Tournament.%20Please%20provide%20me%20with%20a%20registration%20code."
+                        class="whatsapp-btn" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                        Contact Admin on WhatsApp
+                    </a>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #9ca3af;">
+                        Admin Number: +234 810 751 6059
+                    </p>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-number" id="prize-counter">₦16,500</span>
-                    <span class="stat-label">Prize Pool</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" id="players-counter">330</span>
-                    <span class="stat-label">Maximum Players</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" id="matches-counter">0</span>
-                    <span class="stat-label">Matches Played</span>
+
+                <div class="code-input-section">
+                    <h4 style="margin-bottom: 1rem; color: #ffffff;">
+                        <i class="fas fa-ticket-alt"></i> Enter Registration Code
+                    </h4>
+                    <p style="margin-bottom: 1rem; color: #d1d5db;">
+                        Enter the registration code provided by the admin after payment
+                    </p>
+                    <div class="code-input-group">
+                        <input type="text" class="code-input" id="registrationCode"
+                            placeholder="Enter your registration code" maxlength="12">
+                        <button type="button" class="verify-btn" id="verifyCodeBtn" onclick="verifyCode()">
+                            <i class="fas fa-check"></i> Verify Code
+                        </button>
+                    </div>
+                    <div id="codeMessage" style="margin-top: 1rem;"></div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Call to Action Section -->
-    <section class="container" style="padding: 3rem 0;">
-        <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 12px; padding: 2.5rem; text-align: center;">
-            <h2 style="font-size: 1.8rem; font-weight: 700; color: #22c55e; margin-bottom: 1rem;">
-                <i class="fas fa-gamepad"></i>
-                Want to prove say you be king of the pitch?
-            </h2>
-            <p style="font-size: 1rem; color: #e5e7eb; margin-bottom: 1.5rem;">Don't miss out on the ultimate DLS championship! Register now before all slots are taken.</p>
-            <div style="margin-bottom: 1rem;">
-                <a href="Team-Registration.html" class="btn btn-primary" style="font-size: 1rem; padding: 1rem 2.5rem;">
-                    <i class="fas fa-rocket"></i>
-                    REGISTER NOW - ₦1,000 ONLY!
-                </a>
-            </div>
-            <p style="color: #ef4444; font-weight: 600; font-size: 0.9rem;">
-                <i class="fas fa-mobile-alt"></i>
-                To register, send proof of payment to admin
-            </p>
-        </div>
-    </section>
+        <!-- Registration Form (Hidden initially) -->
+        <div class="registration-form" id="registrationForm">
+            <div class="steps-container">
+                <div class="steps-header">
+                    <h2><i class="fas fa-users"></i> Register Your Team</h2>
+                    <p>Complete all steps to secure your spot in the tournament</p>
+                </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Tournament</h3>
-                    <a href="Team-Registration.html">Register Team</a>
-                    <a href="dashboard.html">Dashboard</a>
-                    <a href="#rules">Rules</a>
-                    <a href="#schedule">Schedule</a>
-                </div>
-                <div class="footer-section">
-                    <h3>Support</h3>
-                    <a href="#contact">Contact</a>
-                    <a href="#faq">FAQ</a>
-                    <a href="#help">Help Center</a>
-                    <a href="#feedback">Feedback</a>
-                </div>
-                <div class="footer-section">
-                    <h3>Legal</h3>
-                    <a href="#privacy">Privacy Policy</a>
-                    <a href="#terms">Terms of Service</a>
-                    <a href="#refund">Refund Policy</a>
-                </div>
-                <div class="footer-section">
-                    <h3>Connect</h3>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-discord"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+                <!-- Steps Navigation -->
+                <div class="steps-nav">
+                    <div class="step active" id="step1-nav">
+                        <div class="step-number">1</div>
+                        <span>Team Info</span>
+                    </div>
+                    <div class="step" id="step2-nav">
+                        <div class="step-number">2</div>
+                        <span>Squad Details</span>
+                    </div>
+                    <div class="step" id="step3-nav">
+                        <div class="step-number">3</div>
+                        <span>Confirmation</span>
                     </div>
                 </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Ultimate DLS Championship. All rights reserved.</p>
+
+                <!-- Step 1: Team Information -->
+                <div class="form-section active" id="step1">
+                    <h3>Team Information</h3>
+                    <form id="teamForm">
+                        <div class="form-group required">
+                            <label for="teamName">Team Name</label>
+                            <input type="text" id="teamName" name="teamName" required>
+                            <div class="error-message" id="teamNameError">Team name is required</div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group required">
+                                <label for="captainName">Team Captain Name</label>
+                                <input type="text" id="captainName" name="captainName" required>
+                                <div class="error-message" id="captainNameError">Captain name is required</div>
+                            </div>
+                            <div class="form-group required">
+                                <label for="contactEmail">Contact Email</label>
+                                <input type="email" id="contactEmail" name="contactEmail" required>
+                                <div class="error-message" id="contactEmailError">Valid email is required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phoneNumber">Phone Number</label>
+                                <input type="tel" id="phoneNumber" name="phoneNumber">
+                            </div>
+                            <div class="form-group">
+                                <label for="country">Country</label>
+                                <select id="country" name="country">
+                                    <option value="">Select Country</option>
+                                    <option value="NG">Nigeria</option>
+                                    <option value="GH">Ghana</option>
+                                    <option value="KE">Kenya</option>
+                                    <option value="ZA">South Africa</option>
+                                    <option value="EG">Egypt</option>
+                                    <option value="US">United States</option>
+                                    <option value="UK">United Kingdom</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="AU">Australia</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="teamMotto">Team Motto (Optional)</label>
+                            <input type="text" id="teamMotto" name="teamMotto"
+                                placeholder="e.g., Victory Through Unity">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="socialMedia">Social Media Links (Optional)</label>
+                            <textarea id="socialMedia" name="socialMedia" rows="3"
+                                placeholder="Twitter: @yourteam&#10;Instagram: @yourteam&#10;Discord: yourteam#1234"></textarea>
+                        </div>
+
+                        <!-- Team Logo Upload -->
+                        <div class="form-group">
+                            <label>Team Logo (Optional)</label>
+                            <div class="logo-upload" id="logoUpload">
+                                <i class="fas fa-cloud-upload-alt"
+                                    style="font-size: 2rem; color: #22c55e; margin-bottom: 1rem;"></i>
+                                <p>Click to upload or drag and drop your team logo</p>
+                                <p style="font-size: 0.9rem; color: #9ca3af;">PNG, JPG up to 5MB</p>
+                                <input type="file" id="logoFile" accept="image/*" style="display: none;">
+                                <img class="logo-preview" id="logoPreview" alt="Logo Preview">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Step 2: Squad Details -->
+                <div class="form-section" id="step2">
+                    <h3>Squad Details</h3>
+                    <p style="margin-bottom: 1.5rem; color: #d1d5db;">Add your team players (minimum 4, maximum 11
+                        players)</p>
+
+                    <div class="squad-builder">
+                        <div class="squad-header">
+                            <h4><i class="fas fa-users"></i> Your Squad</h4>
+                            <span class="player-count" id="playerCount">0/11 Players</span>
+                        </div>
+
+                        <div class="player-list" id="playerList">
+                            <!-- Players will be added dynamically -->
+                        </div>
+
+                        <button type="button" class="add-player-btn" id="addPlayerBtn">
+                            <i class="fas fa-plus"></i> Add Player
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Confirmation -->
+                <div class="form-section" id="step3">
+                    <div class="success-section">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h2 class="success-title">Registration Successful!</h2>
+                        <p>Congratulations! Your team registration has been sent to the admin via WhatsApp.</p>
+
+                        <div class="team-id">
+                            <strong>Team ID:</strong> <span id="generatedTeamId">DLS-2025-001</span>
+                        </div>
+
+                        <p style="margin: 1.5rem 0;">
+                            Your team data has been sent directly to the admin's WhatsApp. You will receive confirmation once the admin processes your registration.
+                        </p>
+
+                        <div style="margin: 2rem 0;">
+                            <a href="dashboard.html" class="btn btn-primary" style="margin-right: 1rem;">
+                                <i class="fas fa-chart-line"></i> View Dashboard
+                            </a>
+                            <a href="index.html" class="btn btn-secondary">
+                                <i class="fas fa-home"></i> Back to Home
+                            </a>
+                        </div>
+
+                        <div
+                            style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 12px; margin-top: 2rem;">
+                            <h4><i class="fas fa-info-circle"></i> What's Next?</h4>
+                            <ul style="text-align: left; margin-top: 1rem; color: #d1d5db;">
+                                <li>Admin will review your registration details</li>
+                                <li>You'll receive confirmation via WhatsApp</li>
+                                <li>Check the dashboard for tournament updates</li>
+                                <li>Tournament starts on <strong>September 28, 2025</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="form-navigation">
+                    <button type="button" class="btn btn-secondary" id="prevBtn" onclick="changeStep(-1)"
+                        style="display: none;">
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <button type="button" class="btn btn-primary" id="nextBtn" onclick="changeStep(1)">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button type="button" class="btn btn-success" id="submitBtn" onclick="submitRegistration()"
+                        style="display: none;">
+                        <i class="fas fa-check"></i> Complete Registration
+                    </button>
+                </div>
             </div>
         </div>
-    </footer>
+    </div>
 
     <script>
+        // Admin WhatsApp Configuration
+        const ADMIN_WHATSAPP = {
+            number: '2348107516059', // Admin's WhatsApp number
+            baseUrl: 'https://wa.me/'
+        };
+
+        // Global variables
+        let currentStep = 1;
+        const totalSteps = 3;
+        let players = [];
+        let currentRegCode = '';
+        let validCodes = [
+            'DLS2025-A1B2', 'DLS2025-C3D4', 'DLS2025-E5F6', 'DLS2025-G7H8', 'DLS2025-I9J0',
+            'DLS2025-K1L2', 'DLS2025-M3N4', 'DLS2025-O5P6', 'DLS2025-Q7R8', 'DLS2025-S9T0',
+            'DLS2025-U1V2', 'DLS2025-W3X4', 'DLS2025-Y5Z6', 'DLS2025-A7B8', 'DLS2025-C9D0',
+            'DLS2025-E1F2', 'DLS2025-G3H4', 'DLS2025-I5J6', 'DLS2025-K7L8', 'DLS2025-M9N0',
+            'DLS2025-O1P2', 'DLS2025-Q3R4', 'DLS2025-S5T6', 'DLS2025-U7V8', 'DLS2025-W9X0',
+            'DLS2025-Y1Z2', 'DLS2025-A3B4', 'DLS2025-C5D6', 'DLS2025-E7F8', 'DLS2025-G9H0'
+        ];
+        let usedCodes = JSON.parse(localStorage.getItem('usedCodes') || '[]');
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('Team Registration initialized with WhatsApp integration');
+        });
+
+        // Code verification
+        function verifyCode() {
+            const codeInput = document.getElementById('registrationCode');
+            const code = codeInput.value.trim().toUpperCase();
+            const messageDiv = document.getElementById('codeMessage');
+            const verifyBtn = document.getElementById('verifyCodeBtn');
+
+            if (!code) {
+                showMessage(messageDiv, 'Please enter a registration code', 'error');
+                return;
+            }
+
+            verifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
+            verifyBtn.disabled = true;
+
+            setTimeout(() => {
+                // Check if code is valid
+                if (!validCodes.includes(code)) {
+                    showMessage(messageDiv, 'Invalid registration code. Please contact admin for a valid code.', 'error');
+                    verifyBtn.innerHTML = '<i class="fas fa-check"></i> Verify Code';
+                    verifyBtn.disabled = false;
+                    return;
+                }
+
+                // Check if code is already used
+                if (usedCodes.includes(code)) {
+                    showMessage(messageDiv, 'This registration code has already been used.', 'error');
+                    verifyBtn.innerHTML = '<i class="fas fa-check"></i> Verify Code';
+                    verifyBtn.disabled = false;
+                    return;
+                }
+
+                // Code is valid and unused
+                showMessage(messageDiv, 'Registration code verified successfully!', 'success');
+                currentRegCode = code;
+
+                setTimeout(() => {
+                    document.getElementById('codeSection').style.display = 'none';
+                    document.getElementById('registrationForm').classList.add('active');
+                }, 1500);
+
+                verifyBtn.innerHTML = '<i class="fas fa-check"></i> Verify Code';
+                verifyBtn.disabled = false;
+            }, 1500);
+        }
+
+        // Submit registration via WhatsApp
+        async function submitRegistration() {
+            if (!validateSquad()) {
+                return;
+            }
+
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending to Admin...';
+            submitBtn.disabled = true;
+            showLoading(true);
+
+            try {
+                // Generate team ID
+                const teamId = 'DLS-2025-' + String(Date.now()).slice(-3);
+
+                // Prepare team data
+                const teamData = {
+                    id: teamId,
+                    name: document.getElementById('teamName').value.trim(),
+                    captain: document.getElementById('captainName').value.trim(),
+                    email: document.getElementById('contactEmail').value.trim(),
+                    phone: document.getElementById('phoneNumber').value.trim(),
+                    country: document.getElementById('country').value,
+                    motto: document.getElementById('teamMotto').value.trim(),
+                    socialMedia: document.getElementById('socialMedia').value.trim(),
+                    players: players.filter(p => p.name.trim()),
+                    registrationCode: currentRegCode,
+                    registrationDate: new Date().toLocaleString()
+                };
+
+                // Create WhatsApp message
+                const message = createWhatsAppMessage(teamData);
+                
+                // Mark code as used
+                usedCodes.push(currentRegCode);
+                localStorage.setItem('usedCodes', JSON.stringify(usedCodes));
+
+                // Send to WhatsApp
+                const whatsappUrl = `${ADMIN_WHATSAPP.baseUrl}${ADMIN_WHATSAPP.number}?text=${encodeURIComponent(message)}`;
+                
+                // Update UI
+                document.getElementById('generatedTeamId').textContent = teamId;
+                changeStep(1);
+
+                // Open WhatsApp after a short delay
+                setTimeout(() => {
+                    window.open(whatsappUrl, '_blank');
+                }, 1000);
+
+                showMessage(document.getElementById('codeMessage'), 'Registration sent to admin successfully!', 'success');
+
+            } catch (error) {
+                console.error('Error sending registration:', error);
+                alert('Error sending registration. Please try again.');
+            } finally {
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> Complete Registration';
+                submitBtn.disabled = false;
+                showLoading(false);
+            }
+        }
+
+        // Create formatted WhatsApp message
+        function createWhatsAppMessage(teamData) {
+            let message = `🏆 *DREAM LEAGUE SOCCER TOURNAMENT*\n`;
+            message += `📝 *NEW TEAM REGISTRATION*\n\n`;
+            
+            message += `🆔 *Team ID:* ${teamData.id}\n`;
+            message += `⚽ *Team Name:* ${teamData.name}\n`;
+            message += `👨‍💼 *Captain:* ${teamData.captain}\n`;
+            message += `📧 *Email:* ${teamData.email}\n`;
+            
+            if (teamData.phone) {
+                message += `📱 *Phone:* ${teamData.phone}\n`;
+            }
+            
+            if (teamData.country) {
+                message += `🌍 *Country:* ${teamData.country}\n`;
+            }
+            
+            if (teamData.motto) {
+                message += `💭 *Team Motto:* ${teamData.motto}\n`;
+            }
+            
+            message += `🎫 *Registration Code:* ${teamData.registrationCode}\n`;
+            message += `📅 *Registration Date:* ${teamData.registrationDate}\n\n`;
+            
+            message += `👥 *SQUAD (${teamData.players.length} players):*\n`;
+            teamData.players.forEach((player, index) => {
+                message += `${index + 1}. ${player.name} (${player.position})\n`;
+            });
+            
+            if (teamData.socialMedia) {
+                message += `\n📱 *Social Media:*\n${teamData.socialMedia}\n`;
+            }
+            
+            message += `\n✅ *Status:* Pending Admin Approval\n`;
+            message += `💰 *Entry Fee:* ₦1,000 (Paid)\n\n`;
+            message += `Please confirm this registration and add the team to the tournament database.`;
+            
+            return message;
+        }
+
+        // Utility functions
+        function showLoading(show) {
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.style.display = show ? 'flex' : 'none';
+        }
+
+        function showMessage(element, message, type) {
+            element.innerHTML = `<div class="alert alert-${type}"><i class="fas fa-${type === 'error' ? 'exclamation-triangle' : 'check-circle'}"></i> ${message}</div>`;
+        }
+
+        // Step navigation
+        function changeStep(direction) {
+            if (direction === 1 && !validateCurrentStep()) {
+                return;
+            }
+
+            const currentSection = document.getElementById(`step${currentStep}`);
+            const currentNav = document.getElementById(`step${currentStep}-nav`);
+
+            currentSection.classList.remove('active');
+            currentNav.classList.remove('active');
+
+            if (direction === 1) {
+                currentNav.classList.add('completed');
+            }
+
+            currentStep += direction;
+
+            const newSection = document.getElementById(`step${currentStep}`);
+            const newNav = document.getElementById(`step${currentStep}-nav`);
+
+            newSection.classList.add('active');
+            newNav.classList.add('active');
+
+            updateNavigationButtons();
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+
+            prevBtn.style.display = currentStep > 1 ? 'block' : 'none';
+
+            if (currentStep === totalSteps) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'none';
+            } else if (currentStep === totalSteps - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'block';
+            } else {
+                nextBtn.style.display = 'block';
+                submitBtn.style.display = 'none';
+            }
+        }
+
+        // Validation functions
+        function validateCurrentStep() {
+            switch (currentStep) {
+                case 1:
+                    return validateTeamInfo();
+                case 2:
+                    return validateSquad();
+                default:
+                    return true;
+            }
+        }
+
+        function validateTeamInfo() {
+            const teamName = document.getElementById('teamName').value.trim();
+            const captainName = document.getElementById('captainName').value.trim();
+            const contactEmail = document.getElementById('contactEmail').value.trim();
+
+            let isValid = true;
+
+            if (!teamName) {
+                showError('teamNameError');
+                isValid = false;
+            } else {
+                hideError('teamNameError');
+            }
+
+            if (!captainName) {
+                showError('captainNameError');
+                isValid = false;
+            } else {
+                hideError('captainNameError');
+            }
+
+            if (!contactEmail || !isValidEmail(contactEmail)) {
+                showError('contactEmailError');
+                isValid = false;
+            } else {
+                hideError('contactEmailError');
+            }
+
+            return isValid;
+        }
+
+        function validateSquad() {
+            if (players.length < 4) {
+                alert('You need at least 4 players in your squad.');
+                return false;
+            }
+
+            const emptyPlayers = players.filter(p => !p.name.trim());
+            if (emptyPlayers.length > 0) {
+                alert('Please fill in all player names.');
+                return false;
+            }
+
+            return true;
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function showError(errorId) {
+            document.getElementById(errorId).style.display = 'block';
+        }
+
+        function hideError(errorId) {
+            document.getElementById(errorId).style.display = 'none';
+        }
+
+        // Squad Management
+        function addPlayer() {
+            if (players.length >= 11) {
+                alert('Maximum 11 players allowed.');
+                return;
+            }
+
+            const playerId = Date.now();
+            const player = {
+                id: playerId,
+                name: '',
+                position: 'MF'
+            };
+
+            players.push(player);
+            renderPlayers();
+            updatePlayerCount();
+        }
+
+        function removePlayer(playerId) {
+            players = players.filter(p => p.id !== playerId);
+            renderPlayers();
+            updatePlayerCount();
+        }
+
+        function renderPlayers() {
+            const playerList = document.getElementById('playerList');
+            playerList.innerHTML = '';
+
+            players.forEach((player, index) => {
+                const playerDiv = document.createElement('div');
+                playerDiv.className = 'player-item';
+                playerDiv.innerHTML = `
+                    <input type="text" placeholder="Player ${index + 1} Name" value="${player.name}" 
+                           onchange="updatePlayerName(${player.id}, this.value)">
+                    <select class="position-select" onchange="updatePlayerPosition(${player.id}, this.value)">
+                        <option value="GK" ${player.position === 'GK' ? 'selected' : ''}>Goalkeeper</option>
+                        <option value="DF" ${player.position === 'DF' ? 'selected' : ''}>Defender</option>
+                        <option value="MF" ${player.position === 'MF' ? 'selected' : ''}>Midfielder</option>
+                        <option value="ST" ${player.position === 'ST' ? 'selected' : ''}>Striker</option>
+                    </select>
+                    <button type="button" class="remove-player" onclick="removePlayer(${player.id})">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                playerList.appendChild(playerDiv);
+            });
+        }
+
+        function updatePlayerName(playerId, name) {
+            const player = players.find(p => p.id === playerId);
+            if (player) {
+                player.name = name;
+            }
+        }
+
+        function updatePlayerPosition(playerId, position) {
+            const player = players.find(p => p.id === playerId);
+            if (player) {
+                player.position = position;
+            }
+        }
+
+        function updatePlayerCount() {
+            document.getElementById('playerCount').textContent = `${players.length}/11 Players`;
+        }
+
+        // Logo Upload
+        const logoUpload = document.getElementById('logoUpload');
+        const logoFile = document.getElementById('logoFile');
+        const logoPreview = document.getElementById('logoPreview');
+
+        logoUpload.addEventListener('click', () => logoFile.click());
+
+        logoFile.addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                if (file.size > 5 * 1024 * 1024) { // 5MB limit
+                    alert('File size must be less than 5MB');
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    logoPreview.src = e.target.result;
+                    logoPreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Drag and drop for logo
+        logoUpload.addEventListener('dragover', function (e) {
+            e.preventDefault();
+            this.classList.add('dragover');
+        });
+
+        logoUpload.addEventListener('dragleave', function (e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+        });
+
+        logoUpload.addEventListener('drop', function (e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                logoFile.files = files;
+                logoFile.dispatchEvent(new Event('change'));
+            }
+        });
+
         // Mobile menu toggle
         document.querySelector('.mobile-menu').addEventListener('click', function () {
             const navMenu = document.querySelector('.nav-menu');
             navMenu.classList.toggle('active');
         });
 
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+        // Initialize squad with 4 default players
+        document.getElementById('addPlayerBtn').addEventListener('click', addPlayer);
 
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 100) {
-                navbar.style.background = 'rgba(10, 10, 10, 0.98)';
-            } else {
-                navbar.style.background = 'rgba(10, 10, 10, 0.95)';
-            }
-        });
-
-        // Animated counters
-        function animateCounter(element, target, duration = 2000) {
-            let start = 0;
-            const increment = target / (duration / 16);
-            const timer = setInterval(() => {
-                start += increment;
-                if (start >= target) {
-                    element.textContent = target;
-                    clearInterval(timer);
-                } else {
-                    element.textContent = Math.floor(start);
-                }
-            }, 16);
+        // Add initial players
+        for (let i = 0; i < 4; i++) {
+            addPlayer();
         }
 
-        // Initialize counters
-        window.addEventListener('load', () => {
-            animateCounter(document.getElementById('players-counter'), 330);
-            animateCounter(document.getElementById('matches-counter'), 0);
+        // Enter key for code verification
+        document.getElementById('registrationCode').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                verifyCode();
+            }
         });
     </script>
 </body>
